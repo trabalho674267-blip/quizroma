@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banquete Romano - Quiz do 6º Ano</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepBg: '#080d1a',
+                        cardBg: '#0f172a',
+                        neonPurple: '#a855f7',
+                        neonPurpleDark: '#7e22ce',
+                        neonPurpleLight: '#c084fc',
+                        goldAccent: '#fbbf24'
+                    },
+                    fontFamily: {
+                        title: ['Fredoka', 'sans-serif'],
+                        body: ['Outfit', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #080d1a;
+            color: #f1f5f9;
+        }
+
+        h1, h2, h3, .font-title {
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        .glow-purple-box {
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.35), inset 0 0 15px rgba(168, 85, 247, 0.15);
+        }
+
+        .glow-purple-text {
+            text-shadow: 0 0 12px rgba(192, 132, 252, 0.8);
+        }
+
+        .glow-button {
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .glow-button:hover {
+            box-shadow: 0 0 25px rgba(192, 132, 252, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .glow-button:active {
+            transform: translateY(1px);
+        }
+
+        .progress-bar-fill {
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .animate-pop {
+            animation: popIn 0.3s ease-out forwards;
+        }
+
+        .pulse-glow {
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { filter: drop-shadow(0 0 5px rgba(168, 85, 247, 0.4)); }
+            100% { filter: drop-shadow(0 0 18px rgba(192, 132, 252, 0.9)); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-between p-4 sm:p-6 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-deepBg to-black selection:bg-neonPurple selection:text-white">
+
+    <!-- CABEÇALHO DO APLICATIVO -->
+    <header class="w-full max-w-2xl mx-auto flex items-center justify-between py-4 px-2">
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-neonPurpleDark to-neonPurpleLight flex items-center justify-center shadow-lg glow-purple-box">
+                <i class="fa-solid fa-utensils text-white text-2xl pulse-glow"></i>
+            </div>
+            <div>
+                <h1 class="text-xl sm:text-2xl font-bold text-white tracking-wide leading-none">Banquete Romano</h1>
+                <p class="text-xs text-neonPurpleLight font-medium mt-1">História & Culinária • 6º Ano</p>
+            </div>
+        </div>
+
+        <div class="bg-slate-900/90 border border-neonPurple/40 rounded-xl px-3 py-1.5 flex items-center gap-2 shadow-md">
+            <i class="fa-solid fa-trophy text-goldAccent text-lg"></i>
+            <span id="score-display" class="font-title text-lg text-white font-bold">0 pts</span>
+        </div>
+    </header>
+
+    <!-- CONTAINER PRINCIPAL -->
+    <main class="w-full max-w-2xl mx-auto my-auto py-2">
+
+        <!-- TELA INICIAL (START) -->
+        <div id="screen-start" class="bg-cardBg/90 border-2 border-neonPurple/40 rounded-3xl p-6 sm:p-8 text-center glow-purple-box backdrop-blur-md transition-all">
+            <div class="inline-block p-4 rounded-full bg-neonPurple/10 border border-neonPurple/30 mb-4">
+                <i class="fa-solid fa-pizza-slice text-5xl text-neonPurpleLight pulse-glow"></i>
+            </div>
+
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-3 glow-purple-text">
+                O que os Romanos Comiam?
+            </h2>
+
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 max-w-lg mx-auto">
+                Você sabia que na Roma Antiga não existia açúcar e eles adoravam um molho feito com peixe fermentado? 🐟🍯
+                <br><br>
+                Venha testar seus conhecimentos e descobrir curiosidades incríveis sobre os alimentos e banquetes do Império Romano!
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6 text-xs sm:text-sm text-slate-400">
+                <div class="flex items-center gap-2 bg-slate-800/80 px-3 py-2 rounded-lg border border-slate-700">
+                    <i class="fa-solid fa-list-check text-neonPurpleLight"></i> 10 Perguntas Divertidas
+                </div>
+                <div class="flex items-center gap-2 bg-slate-800/80 px-3 py-2 rounded-lg border border-slate-700">
+                    <i class="fa-solid fa-award text-goldAccent"></i> Ganhe Medalhas de Roma
+                </div>
+            </div>
+
+            <button onclick="startQuiz()" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-neonPurpleDark via-neonPurple to-neonPurpleLight text-white font-title text-xl font-bold tracking-wider glow-button flex items-center justify-center gap-3 mx-auto">
+                <span>INICIAR BANQUETE!</span>
+                <i class="fa-solid fa-play"></i>
+            </button>
+        </div>
+
+        <!-- TELA DE PERGUNTAS (QUIZ ACTIVE) -->
+        <div id="screen-quiz" class="hidden bg-cardBg/95 border-2 border-neonPurple/40 rounded-3xl p-5 sm:p-7 glow-purple-box backdrop-blur-md">
+            
+            <!-- Barra de Progresso e Numeração -->
+            <div class="mb-6">
+                <div class="flex justify-between items-center text-xs font-bold text-slate-300 mb-2">
+                    <span id="question-count" class="text-neonPurpleLight uppercase tracking-wider">Pergunta 1 de 10</span>
+                    <span id="streak-badge" class="hidden text-amber-400 font-extrabold flex items-center gap-1 animate-pulse">
+                        <i class="fa-solid fa-fire"></i> Combo x<span id="streak-count">1</span>
+                    </span>
+                </div>
+                <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden p-0.5 border border-slate-700">
+                    <div id="progress-bar" class="progress-bar-fill bg-gradient-to-r from-neonPurpleDark to-neonPurpleLight h-full rounded-full w-10"></div>
+                </div>
+            </div>
+
+            <!-- Enunciado da Pergunta -->
+            <div class="mb-6">
+                <span id="question-category" class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-neonPurple/20 text-neonPurpleLight border border-neonPurple/30 mb-2">
+                    Categoria
+                </span>
+                <h3 id="question-text" class="text-xl sm:text-2xl font-bold text-white leading-snug">
+                    Carregando pergunta...
+                </h3>
+            </div>
+
+            <!-- Lista de Opções de Resposta -->
+            <div id="options-container" class="space-y-3 mb-6">
+                <!-- Opções injetadas via JavaScript -->
+            </div>
+
+            <!-- Caixa de Feedback e Curiosidade -->
+            <div id="feedback-box" class="hidden rounded-2xl p-4 mb-6 transition-all duration-300">
+                <div class="flex items-start gap-3">
+                    <div id="feedback-icon" class="text-2xl mt-0.5"></div>
+                    <div>
+                        <h4 id="feedback-title" class="font-title text-base sm:text-lg font-bold mb-1"></h4>
+                        <p id="feedback-text" class="text-xs sm:text-sm leading-relaxed"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botão Próxima Pergunta -->
+            <button id="next-btn" onclick="nextQuestion()" class="hidden w-full py-3.5 rounded-xl bg-gradient-to-r from-neonPurple to-neonPurpleLight text-white font-title text-lg font-bold glow-button items-center justify-center gap-2">
+                <span>PRÓXIMA PERGUNTA</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <!-- TELA DE RESULTADO (FINAL) -->
+        <div id="screen-result" class="hidden bg-cardBg/90 border-2 border-neonPurple/
